@@ -1,0 +1,18 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@font-face {
+  font-family: 'Avenir Black';
+  src: url('/fonts/AvenirLTPro-Black.woff');
+}
+
+@font-face {
+  font-family: 'Avenir Heavy';
+  src: url('/fonts/AvenirLTPro-Heavy.woff');
+}
+
+@font-face {
+  font-family: 'Avenir Book';
+  src: url('/fonts/AvenirLTPro-Book.woff');
+}
