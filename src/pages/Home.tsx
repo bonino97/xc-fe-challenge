@@ -1,3 +1,4 @@
+import { useContext, useEffect } from 'react';
 import { useArtist, useGetEvents, useGetPastEvents } from '@/hooks';
 import {
   ArtistBio,
@@ -6,8 +7,10 @@ import {
   Topbar,
   UpcomingEvents,
 } from '@/components';
+import { ArtistContext, ArtistContextProps } from '@/providers/ArtistContext';
 
 const Home: React.FC = () => {
+  const { setArtist } = useContext<ArtistContextProps>(ArtistContext);
   const { data: artist } = useArtist();
   const { data: events, hasNextPage, fetchNextPage } = useGetEvents();
   const {
@@ -16,10 +19,16 @@ const Home: React.FC = () => {
     fetchNextPage: pastEventsFetchNextPage,
   } = useGetPastEvents();
 
+  useEffect(() => {
+    if (artist) {
+      setArtist(artist);
+    }
+  }, [artist, setArtist]);
+
   return (
     <>
       <Topbar />
-      {artist && <ArtistHeader artist={artist} />}
+      {artist && <ArtistHeader />}
       <div className='mx-4 lg:mx-40 pb-8'>
         {events && (
           <UpcomingEvents
@@ -31,7 +40,7 @@ const Home: React.FC = () => {
       </div>
       <div className='bg-[#f9f9f9] rounded-t-2xl max-h-full'>
         <div className='mx-4 lg:mx-40 pt-2 pb-48 lg:pb-8'>
-          {artist && <ArtistBio artist={artist} />}
+          {artist && <ArtistBio />}
           {pastEvents && (
             <PastEvents
               events={pastEvents}

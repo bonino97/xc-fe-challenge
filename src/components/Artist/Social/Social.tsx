@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useContext, useEffect, useRef, useState } from 'react';
 import {
   PlayIcon,
   SpotifyIcon,
@@ -7,13 +7,10 @@ import {
   PencilIcon,
   PauseIcon,
 } from '@/assets/Icons';
-import { IArtist } from '@/types/IArtist.interface';
+import { ArtistContext } from '@/providers/ArtistContext';
 
-interface ArtistSocialProps {
-  artist: IArtist;
-}
-
-const ArtistSocial: React.FC<ArtistSocialProps> = ({ artist }) => {
+const ArtistSocial: React.FC = () => {
+  const { artist } = useContext(ArtistContext);
   const audioRef = useRef<HTMLAudioElement>(null);
   const [isPlaying, setIsPlaying] = useState<boolean>(false);
   const [isFollowing, setIsFollowing] = useState<boolean>(false);

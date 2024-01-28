@@ -1,11 +1,9 @@
-import { IArtist } from '@/types/IArtist.interface';
+import { useContext } from 'react';
 import { ArtistSocial } from '@/components';
+import { ArtistContext } from '@/providers/ArtistContext';
 
-interface ArtistHeaderProps {
-  artist: IArtist;
-}
-
-const ArtistHeader: React.FC<ArtistHeaderProps> = ({ artist }) => {
+const ArtistHeader: React.FC = () => {
+  const { artist } = useContext(ArtistContext);
   return (
     <>
       <div
@@ -21,7 +19,7 @@ const ArtistHeader: React.FC<ArtistHeaderProps> = ({ artist }) => {
           />
 
           <div className='lg:absolute fixed lg:bottom-24 bottom-0 lg:right-1 w-full lg:max-w-[30rem] lg:bg-transparent rounded-xl lg:p-8'>
-            <ArtistSocial artist={artist} />
+            <ArtistSocial />
           </div>
         </div>
 

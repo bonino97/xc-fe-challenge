@@ -1,12 +1,9 @@
-import { useState } from 'react';
+import { useContext, useState } from 'react';
+import { ArtistContext } from '@/providers/ArtistContext';
 import { ArrowIcon, DiskIcon } from '@/assets/Icons';
-import { IArtist } from '@/types/IArtist.interface';
 
-interface ArtistBioProps {
-  artist: IArtist;
-}
-
-const ArtistBio: React.FC<ArtistBioProps> = ({ artist }) => {
+const ArtistBio: React.FC = () => {
+  const { artist } = useContext(ArtistContext);
   const [isExpanded, setIsExpanded] = useState(false);
 
   const toggleExpand = () => {
