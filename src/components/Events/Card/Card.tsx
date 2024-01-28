@@ -12,7 +12,6 @@ const EventCard: React.FC<EventCardProps> = ({ event }) => {
     month: 'short',
   });
 
-  console.log(event);
   return (
     <div
       key={event.id}

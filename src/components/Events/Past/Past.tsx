@@ -15,7 +15,12 @@ const PastEvents: React.FC<PastEventsProps> = ({
 }) => {
   return (
     <>
-      <h2 className='text-xl mt-14 font-bold'>Past events</h2>
+      <div className='flex flex-row justify-between items-center mt-10'>
+        <h2 className='text-xl font-bold pt-4'>Past events</h2>
+        {hasNextPage && (
+          <LinkButton text='See More Past Events' onClick={fetchNextPage} />
+        )}
+      </div>
       <div className='grid grid-cols-2 gap-4'>
         {events?.pages.map((page) =>
           page.map((event) => {
@@ -23,9 +28,6 @@ const PastEvents: React.FC<PastEventsProps> = ({
           })
         )}
       </div>
-      {hasNextPage && (
-        <LinkButton text='See More Past Events' onClick={fetchNextPage} />
-      )}
     </>
   );
 };

@@ -28,14 +28,18 @@ const Home: React.FC = () => {
             fetchNextPage={fetchNextPage}
           />
         )}
-        {artist && <ArtistBio artist={artist} />}
-        {pastEvents && (
-          <PastEvents
-            events={pastEvents}
-            hasNextPage={pastEventsNextPage}
-            fetchNextPage={pastEventsFetchNextPage}
-          />
-        )}
+      </div>
+      <div className='bg-[#f9f9f9] rounded-t-2xl max-h-full'>
+        <div className='mx-4 lg:mx-40 pt-2 mb-48 lg:mb-8'>
+          {artist && <ArtistBio artist={artist} />}
+          {pastEvents && (
+            <PastEvents
+              events={pastEvents}
+              hasNextPage={pastEventsNextPage}
+              fetchNextPage={pastEventsFetchNextPage}
+            />
+          )}
+        </div>
       </div>
     </>
   );
