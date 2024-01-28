@@ -1,4 +1,5 @@
 import { useContext, useEffect, useRef, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import {
   PlayIcon,
   SpotifyIcon,
@@ -7,11 +8,12 @@ import {
   PencilIcon,
   PauseIcon,
 } from '@/assets/Icons';
-import { ArtistContext } from '@/providers/ArtistContext';
+import { ArtistContext, ArtistContextProps } from '@/providers/ArtistContext';
 
 const ArtistSocial: React.FC = () => {
-  const { artist } = useContext(ArtistContext);
+  const { artist } = useContext<ArtistContextProps>(ArtistContext);
   const audioRef = useRef<HTMLAudioElement>(null);
+  const navigate = useNavigate();
   const [isPlaying, setIsPlaying] = useState<boolean>(false);
   const [isFollowing, setIsFollowing] = useState<boolean>(false);
 
@@ -37,6 +39,12 @@ const ArtistSocial: React.FC = () => {
     };
   }, [isPlaying]);
 
+  const handleEditClick = () => {
+    if (artist) {
+      navigate(`/edit/${artist.slug}`);
+    }
+  };
+
   return (
     <div className='bg-[#1a1d1f] lg:bg-transparent lg:p-0 p-4 w-full rounded-t-lg m-0'>
       <div className='flex'>
@@ -56,7 +64,7 @@ const ArtistSocial: React.FC = () => {
             <p className='text-[13px] leading-[1.85] text-white font-avenirBlack font-black tracking-[0.0813rem] uppercase'>
               Artist
             </p>
-            <p className='font-avenirBlack font-black text-[13px] tracking-[0.0813rem] text-[#9dc1cb] leading-[1.23] ml-2 hidden md:block'>
+            <p className='font-avenirBlack font-black text-[13px] tracking-[0.0813rem] text-[#9dc1cb] leading-[1.23] ml-2 hidden md:block whitespace-nowrap'>
               {artist &&
                 artist?.musicGenres.map((genre, index) => (
                   <span key={index}>
@@ -89,7 +97,10 @@ const ArtistSocial: React.FC = () => {
         >
           {isFollowing ? '♥️ Following' : 'Follow'}
         </button>
-        <button className='text-white rounded-full border border-white px-5 py-2.5 text-sm font-semibold ml-4 flex flex-row'>
+        <button
+          className='text-white rounded-full border border-white px-5 py-2.5 text-sm font-semibold ml-4 flex flex-row'
+          onClick={handleEditClick}
+        >
           <PencilIcon className='mr-2 mt-1' /> <span>Edit</span>
         </button>
       </div>

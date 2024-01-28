@@ -9,9 +9,10 @@ import {
 } from '@/components';
 import { ArtistContext, ArtistContextProps } from '@/providers/ArtistContext';
 
+const ARTIST_SLUG = 'tini'; // TODO: parametrize artist slug by another way, maybe by url.
 const Home: React.FC = () => {
   const { setArtist } = useContext<ArtistContextProps>(ArtistContext);
-  const { data: artist } = useArtist();
+  const { data: artist } = useArtist(ARTIST_SLUG);
   const { data: events, hasNextPage, fetchNextPage } = useGetEvents();
   const {
     data: pastEvents,

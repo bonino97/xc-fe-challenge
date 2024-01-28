@@ -15,7 +15,7 @@ const UpcomingEvents: React.FC<UpcomingEventsProps> = ({
 }) => {
   return (
     <>
-      <h2 className='text-xl mt-14 font-bold'>Upcoming Gigs</h2>
+      <h2 className='text-xl mt-14 font-bold mb-6'>Upcoming Gigs</h2>
       {events?.pages.map((page) =>
         page.map((event) => {
           return <EventCard event={event} key={event.id} />;

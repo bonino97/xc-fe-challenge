@@ -21,7 +21,7 @@ const EventCard: React.FC<EventCardProps> = ({ event }) => {
         <img
           className='w-20 h-20 rounded-lg object-cover brightness-75'
           src={event.coverUrl}
-          alt={`event ${event.name} photo`}
+          alt={`xCeed event ${event.name} photo`}
         />
         <div className='absolute text-white top-1 left-4 w-full h-full'>
           <div className='text-3xl font-semibold'>

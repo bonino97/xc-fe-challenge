@@ -1,9 +1,9 @@
 import { useContext, useState } from 'react';
-import { ArtistContext } from '@/providers/ArtistContext';
+import { ArtistContext, ArtistContextProps } from '@/providers/ArtistContext';
 import { ArrowIcon, DiskIcon } from '@/assets/Icons';
 
 const ArtistBio: React.FC = () => {
-  const { artist } = useContext(ArtistContext);
+  const { artist } = useContext<ArtistContextProps>(ArtistContext);
   const [isExpanded, setIsExpanded] = useState(false);
 
   const toggleExpand = () => {
@@ -19,7 +19,7 @@ const ArtistBio: React.FC = () => {
 
   return (
     <>
-      <h2 className='text-xl mt-14 font-bold'>Bio</h2>
+      <h2 className='text-xl mt-8 font-bold mb-4'>Bio</h2>
 
       <div className='flex flex-col lg:flex-row gap-14'>
         <div className='flex flex-col basis-3/4 text-justify text-[#36424a] tracking-[0.03rem] font-avenirBook'>

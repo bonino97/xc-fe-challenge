@@ -1,9 +1,9 @@
 import { useContext } from 'react';
 import { ArtistSocial } from '@/components';
-import { ArtistContext } from '@/providers/ArtistContext';
+import { ArtistContext, ArtistContextProps } from '@/providers/ArtistContext';
 
 const ArtistHeader: React.FC = () => {
-  const { artist } = useContext(ArtistContext);
+  const { artist } = useContext<ArtistContextProps>(ArtistContext);
   return (
     <>
       <div
@@ -16,6 +16,7 @@ const ArtistHeader: React.FC = () => {
           <img
             className='absolute bottom-1 lg:w-[30rem] lg:h-[30rem] object-cover object-center rounded-xl'
             src={`${artist?.coverUrl}?w=920&fm=auto`}
+            alt={`xCeed artist coverUrl ${artist?.name}`}
           />
 
           <div className='lg:absolute fixed lg:bottom-24 bottom-0 lg:right-1 w-full lg:max-w-[30rem] lg:bg-transparent rounded-xl lg:p-8'>
