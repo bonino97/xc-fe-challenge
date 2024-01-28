@@ -30,7 +30,7 @@ const Home: React.FC = () => {
         )}
       </div>
       <div className='bg-[#f9f9f9] rounded-t-2xl max-h-full'>
-        <div className='mx-4 lg:mx-40 pt-2 mb-48 lg:mb-8'>
+        <div className='mx-4 lg:mx-40 pt-2 pb-48 lg:pb-8'>
           {artist && <ArtistBio artist={artist} />}
           {pastEvents && (
             <PastEvents

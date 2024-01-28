@@ -21,7 +21,7 @@ const PastEvents: React.FC<PastEventsProps> = ({
           <LinkButton text='See More Past Events' onClick={fetchNextPage} />
         )}
       </div>
-      <div className='grid grid-cols-2 gap-4'>
+      <div className='grid grid-cols-1 md:grid-cols-2 gap-4'>
         {events?.pages.map((page) =>
           page.map((event) => {
             return <EventCard event={event} key={event.id} />;

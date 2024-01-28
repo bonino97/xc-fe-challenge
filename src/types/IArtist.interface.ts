@@ -8,4 +8,8 @@ export interface IArtist {
   musicGenres: {
     name: string;
   }[];
+  tracks: {
+    name: string;
+    url: string;
+  }[];
 }

@@ -1,10 +1,11 @@
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import {
   PlayIcon,
   SpotifyIcon,
   SoundCloudIcon,
   WebIcon,
   PencilIcon,
+  PauseIcon,
 } from '@/assets/Icons';
 import { IArtist } from '@/types/IArtist.interface';
 
@@ -13,22 +14,46 @@ interface ArtistSocialProps {
 }
 
 const ArtistSocial: React.FC<ArtistSocialProps> = ({ artist }) => {
+  const audioRef = useRef<HTMLAudioElement>(null);
+  const [isPlaying, setIsPlaying] = useState<boolean>(false);
   const [isFollowing, setIsFollowing] = useState<boolean>(false);
 
-  console.log(artist);
+  useEffect(() => {
+    const audio = audioRef.current;
+    if (!audio) return;
+
+    const playAudio = () => {
+      audio.play();
+      setIsPlaying(true);
+    };
+
+    const pauseAudio = () => {
+      audio.pause();
+      setIsPlaying(false);
+    };
+
+    isPlaying ? playAudio() : pauseAudio();
+
+    return () => {
+      audio.removeEventListener('play', playAudio);
+      audio.removeEventListener('pause', pauseAudio);
+    };
+  }, [isPlaying]);
 
   return (
-    <div className='bg-[#1a1d1f] lg:bg-transparent lg:p-0 p-4 w-full'>
+    <div className='bg-[#1a1d1f] lg:bg-transparent lg:p-0 p-4 w-full rounded-t-lg m-0'>
       <div className='flex'>
         <div
+          onClick={() => setIsPlaying(!isPlaying)}
           style={{
             background:
               'linear-gradient(to bottom, #cddffd 0%, #eabef4 50%, #f7dcc7 100%)',
           }}
           className='w-[4.5rem] h-[4.5rem] rounded-[3.125rem] flex items-center justify-center'
         >
-          <PlayIcon />
+          {isPlaying ? <PauseIcon /> : <PlayIcon />}
         </div>
+        <audio ref={audioRef} src={artist?.tracks[0]?.url} preload='none' />
         <div className='flex flex-col justify-center ml-[1.9375rem]'>
           <div className='flex flex-row'>
             <p className='text-[13px] leading-[1.85] text-white font-avenirBlack font-black tracking-[0.0813rem] uppercase'>
