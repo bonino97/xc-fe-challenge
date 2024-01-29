@@ -12,4 +12,8 @@ export interface IArtist {
     name: string;
     url: string;
   }[];
+  website: string;
+  spotify: string;
+  mixcloud: string;
+  soundcloud: string;
 }

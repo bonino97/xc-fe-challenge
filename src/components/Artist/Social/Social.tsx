@@ -45,6 +45,16 @@ const ArtistSocial: React.FC = () => {
     }
   };
 
+  const handleNavigateToUrl = (url: string) => {
+    if (!url || url.length === 0) return;
+
+    if (!url.includes('http')) {
+      url = `https://${url}`;
+    }
+
+    window.open(url, '_blank');
+  };
+
   return (
     <div className='bg-[#1a1d1f] lg:bg-transparent lg:p-0 p-4 w-full rounded-t-lg m-0'>
       <div className='flex'>
@@ -64,7 +74,7 @@ const ArtistSocial: React.FC = () => {
             <p className='text-[13px] leading-[1.85] text-white font-avenirBlack font-black tracking-[0.0813rem] uppercase'>
               Artist
             </p>
-            <p className='font-avenirBlack font-black text-[13px] tracking-[0.0813rem] text-[#9dc1cb] leading-[1.23] ml-2 hidden md:block whitespace-nowrap'>
+            <p className='font-avenirBlack font-black text-[13px] tracking-[0.0813rem] text-[#9dc1cb] leading-[1.23] ml-2 hidden md:block'>
               {artist &&
                 artist?.musicGenres.map((genre, index) => (
                   <span key={index}>
@@ -81,9 +91,18 @@ const ArtistSocial: React.FC = () => {
           </p>
         </div>
         <div className='flex flex-col m-auto space-y-1.5'>
-          <WebIcon />
-          <SpotifyIcon />
-          <SoundCloudIcon />
+          <WebIcon
+            className='cursor-pointer'
+            onClick={() => handleNavigateToUrl(artist?.website || '')}
+          />
+          <SpotifyIcon
+            className='cursor-pointer'
+            onClick={() => handleNavigateToUrl(artist?.spotify || '')}
+          />
+          <SoundCloudIcon
+            className='cursor-pointer'
+            onClick={() => handleNavigateToUrl(artist?.soundcloud || '')}
+          />
         </div>
       </div>
       <div className='flex flex-row pt-8'>
@@ -92,13 +111,13 @@ const ArtistSocial: React.FC = () => {
             isFollowing
               ? 'bg-[#aed8e5] border border-white text-white'
               : 'bg-white text-black'
-          }  rounded-full px-5 py-2.5 text-sm font-bold`}
+          }  rounded-full px-5 py-2.5 text-sm font-avenirBlack`}
           onClick={() => setIsFollowing(!isFollowing)}
         >
           {isFollowing ? '♥️ Following' : 'Follow'}
         </button>
         <button
-          className='text-white rounded-full border border-white px-5 py-2.5 text-sm font-semibold ml-4 flex flex-row'
+          className='text-white rounded-full border border-white px-5 py-2.5 text-sm font-avenirHeavy ml-4 flex flex-row'
           onClick={handleEditClick}
         >
           <PencilIcon className='mr-2 mt-1' /> <span>Edit</span>

@@ -16,7 +16,7 @@ const PastEvents: React.FC<PastEventsProps> = ({
   return (
     <>
       <div className='flex flex-row justify-between items-center mt-10'>
-        <h2 className='text-xl font-bold pt-4'>Past events</h2>
+        <h2 className='text-xl pt-4 font-avenirBlack'>Past events</h2>
         {hasNextPage && (
           <LinkButton text='See More Past Events' onClick={fetchNextPage} />
         )}

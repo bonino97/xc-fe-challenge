@@ -24,17 +24,19 @@ const EventCard: React.FC<EventCardProps> = ({ event }) => {
           alt={`xCeed event ${event.name} photo`}
         />
         <div className='absolute text-white top-1 left-4 w-full h-full'>
-          <div className='text-3xl font-semibold'>
+          <div className='text-3xl font-avenirBlack'>
             {days[weekDay].charAt(0) + eventDate.getDate()}
           </div>
-          <div className='text-sm font-semibold tracking-widest'>
+          <div className='text-sm font-avenirBlack tracking-widest'>
             {month.toUpperCase()}
           </div>
         </div>
       </div>
       <div>
-        <p className='text-lg font-bold text-[#36424a]'>{event.name}</p>
-        <p className='text-sm text-[#36424a]'>
+        <p className='text-lg font-bold text-[#36424a] font-avenirBlack'>
+          {event.name}
+        </p>
+        <p className='text-sm text-[#36424a] font-avenirBook'>
           {event.venue.city.name}, {event.venue.city.country.name}
         </p>
       </div>

@@ -8,7 +8,9 @@ interface InputProps {
   register: UseFormRegister<IFormValues>;
   isOptional?: boolean;
   showLabel?: boolean;
+  className?: string;
   inputClassName?: string;
+  labelClassName?: string;
 }
 
 const Input: React.FC<InputProps> = ({
@@ -18,12 +20,14 @@ const Input: React.FC<InputProps> = ({
   register,
   isOptional = false,
   showLabel = true,
+  className = '',
   inputClassName = '',
+  labelClassName = 'text-[16px] mb-3 font-avenirHeavy text-[#36424a] leading-[1.13]',
 }) => {
   return (
-    <>
+    <div className={`flex flex-col w-full ${className}`}>
       {showLabel && (
-        <h2 className='text-[16px] mb-3 font-avenirHeavy text-[#36424a] leading-[1.13]'>
+        <h2 className={labelClassName}>
           {label}
           {isOptional && (
             <span className='text-[#b6babd] text-[12px] leading-[24px] font-avenirHeavy'>
@@ -39,7 +43,7 @@ const Input: React.FC<InputProps> = ({
         placeholder={placeholder}
         {...register(fieldName)}
       />
-    </>
+    </div>
   );
 };
 

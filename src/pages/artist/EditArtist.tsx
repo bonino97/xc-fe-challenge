@@ -1,25 +1,66 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { useContext, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { useArtist } from '@/hooks';
-import { Input, Textarea, Topbar } from '@/components';
+import { Input, MultiSelect, Textarea, Topbar } from '@/components';
 import { ArtistContext, ArtistContextProps } from '@/providers/ArtistContext';
 import { IFormValues } from '@/types/IFormValues.interface';
 import { PencilIcon } from '@/assets/Icons';
+import { IArtist } from '@/types/IArtist.interface';
 
 const EditArtist: React.FC = () => {
   const { slug } = useParams();
+  const navigate = useNavigate();
   const { setArtist } = useContext<ArtistContextProps>(ArtistContext);
   const { data: artist } = useArtist(slug ?? '');
-  const { register, handleSubmit } = useForm<IFormValues>();
+  const { register, handleSubmit, setValue, control } = useForm<IFormValues>();
 
   useEffect(() => {
+    patchValues();
+  }, [artist, setArtist, setValue]);
+
+  const handleDiscardClick = () => {
+    navigate('/');
+  };
+
+  const onSubmit = (data: IFormValues) => {
+    if (!artist) return;
+    // Obtén el estado actual de artist
+    const prevArtist = artist;
+
+    // Crea un nuevo objeto artist con los valores actualizados
+    const newArtist: IArtist = {
+      ...prevArtist,
+      description: data.description || prevArtist.description,
+      musicGenres:
+        data.musicGenres.length > 0 ? data.musicGenres : prevArtist.musicGenres,
+      recordLabel: data.recordLabel || prevArtist.recordLabel,
+      website: data.website || prevArtist.website,
+      spotify: data.spotify || prevArtist.spotify,
+      mixcloud: data.mixcloud || prevArtist.mixcloud,
+      soundcloud: data.soundcloud || prevArtist.soundcloud,
+    };
+
+    // Llama a setArtist con el nuevo objeto artist
+    setArtist(newArtist);
+
+    // Navega a la página de artist
+    navigate(`/`);
+  };
+
+  const handleImageChange = () => {
+    //TODO: Add image providers
+  };
+
+  const patchValues = () => {
     if (artist) {
       setArtist(artist);
+      setValue('description', artist?.description || '');
+      setValue('musicGenres', artist?.musicGenres || []);
+      setValue('recordLabel', artist?.recordLabel || '');
     }
-  }, [artist, setArtist]);
-
-  const onSubmit = (data: IFormValues) => console.log(data);
+  };
 
   return (
     <>
@@ -33,6 +74,7 @@ const EditArtist: React.FC = () => {
             <span>{artist?.name} </span>{' '}
             <PencilIcon color='#000' className='ml-2 mt-1.5 w-4 h-4' />
           </h1>
+
           <p className='text-sm text-gray-400 mb-8 tracking-wide font-avenirLight'>
             Edit your artist info and artworks here.
           </p>
@@ -40,41 +82,47 @@ const EditArtist: React.FC = () => {
           <h2 className='text-[16px] mb-3 font-avenirHeavy text-[#36424a] leading-[1.13]'>
             Photos
           </h2>
-          <div className='mb-6'>
+
+          <div className='relative mb-6 inline-block max-w-[36rem] w-full'>
             <img
               src={artist?.coverUrl}
               alt={`xCeed artist coverUrl ${artist?.name}`}
-              className='
-              w-3/5 max-h-[21.25rem] h-full bg-gray-300 rounded-lg flex items-center justify-center object-cover object-center
-            '
+              className='w-full max-h-[21.25rem] h-full bg-gray-300 rounded-lg flex items-center justify-center object-cover object-center'
             />
+            <button
+              className='absolute bottom-0 right-0 bg-[#94c7d4] rounded-full p-4 m-2'
+              onClick={handleImageChange}
+            >
+              <PencilIcon className='h-6 w-6 text-white' fill='white' />
+            </button>
           </div>
 
           <div className='mb-6'>
             <Textarea
               label='Biography'
               placeholder="What's behind the curtains"
-              fieldName='biography'
+              fieldName='description'
               register={register}
               isOptional={false}
             />
           </div>
 
           <div className='mb-6'>
-            <Input
+            <MultiSelect
               label='Music'
               placeholder='Select up to 3 music genres'
-              fieldName='music'
+              fieldName='musicGenres'
               register={register}
               isOptional={true}
+              control={control}
             />
           </div>
 
           <div className='mb-6'>
             <Input
               label='Label'
-              placeholder='Label'
-              fieldName='label'
+              placeholder='Select or add labels'
+              fieldName='recordLabel'
               register={register}
               isOptional={true}
             />
@@ -83,7 +131,7 @@ const EditArtist: React.FC = () => {
           <div className='mb-6'>
             <Input
               label='Website'
-              placeholder='Website'
+              placeholder='Insert URL here'
               fieldName='website'
               register={register}
               isOptional={true}
@@ -97,35 +145,38 @@ const EditArtist: React.FC = () => {
                 (Optional)
               </span>
             </h2>
-            <div className='flex space-x-3'>
+            <div className='flex flex-col w-full md:flex-row'>
               <Input
                 label='Spotify'
-                placeholder='Spotify'
+                placeholder=''
                 fieldName='spotify'
                 register={register}
-                isOptional={true}
-                showLabel={false}
+                isOptional={false}
+                className='mr-3'
                 inputClassName='flex-1'
+                labelClassName='font-avenirBook text-[14px] text-[#6e7a83] leading-[24px] mb-1'
               />
 
               <Input
                 label='Mixcloud'
-                placeholder='Mixcloud'
+                placeholder=''
                 fieldName='mixcloud'
                 register={register}
-                isOptional={true}
-                showLabel={false}
+                showLabel={true}
+                className='mr-3'
                 inputClassName='flex-1'
+                labelClassName='font-avenirBook text-[14px] text-[#6e7a83] leading-[24px] mb-1'
               />
 
               <Input
                 label='Soundcloud'
-                placeholder='Soundcloud'
+                placeholder=''
                 fieldName='soundcloud'
                 register={register}
-                isOptional={true}
-                showLabel={false}
+                isOptional={false}
+                showLabel={true}
                 inputClassName='flex-1'
+                labelClassName='font-avenirBook text-[14px] text-[#6e7a83] leading-[24px] mb-1'
               />
             </div>
           </div>
@@ -133,7 +184,11 @@ const EditArtist: React.FC = () => {
           <hr className='my-10 w-full' />
 
           <div className='flex justify-end space-x-4'>
-            <button className='px-6 py-3 bg-[#f6f7fb] text-[#6e7a83] rounded-lg font-avenirBlack'>
+            <button
+              className='px-6 py-3 bg-[#f6f7fb] text-[#6e7a83] rounded-lg font-avenirBlack'
+              type='button'
+              onClick={handleDiscardClick}
+            >
               Discard
             </button>
             <button

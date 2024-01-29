@@ -1,7 +1,9 @@
 export interface IFormValues {
-  biography: string;
-  music: string;
-  label: string;
+  description: string;
+  musicGenres: {
+    name: string;
+  }[];
+  recordLabel: string;
   website: string;
   spotify: string;
   mixcloud: string;

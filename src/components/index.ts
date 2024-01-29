@@ -2,6 +2,7 @@ export { default as Topbar } from './Shared/Topbar/Topbar';
 export { default as LinkButton } from './Shared/LinkButton/LinkButton';
 export { default as Input } from './Shared/Input/Input';
 export { default as Textarea } from './Shared/Textarea/Textarea';
+export { default as MultiSelect } from './Shared/MultiSelect/MultiSelect';
 export { default as ArtistHeader } from './Artist/Header/Header';
 export { default as ArtistBio } from './Artist/Bio/Bio';
 export { default as ArtistSocial } from './Artist/Social/Social';
