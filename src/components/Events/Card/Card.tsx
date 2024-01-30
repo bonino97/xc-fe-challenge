@@ -15,9 +15,15 @@ const EventCard: React.FC<EventCardProps> = ({ event }) => {
     month: 'short',
   });
 
-  const openModal = () => setIsOpenModal(true);
+  const openModal = (e: { stopPropagation: () => void }) => {
+    e.stopPropagation();
+    setIsOpenModal(true);
+  };
 
-  const closeModal = () => setIsOpenModal(false);
+  const closeModal = (e: { stopPropagation: () => void }) => {
+    e.stopPropagation();
+    setIsOpenModal(false);
+  };
 
   return (
     <div
@@ -49,7 +55,13 @@ const EventCard: React.FC<EventCardProps> = ({ event }) => {
         </p>
       </div>
 
-      {isOpenModal && <EventModal onClose={closeModal} eventId={event.id} />}
+      {isOpenModal && (
+        <EventModal
+          isOpen={isOpenModal}
+          onClose={closeModal}
+          eventId={event.id}
+        />
+      )}
     </div>
   );
 };

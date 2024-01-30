@@ -14,25 +14,28 @@ import {
 Modal.setAppElement('#root');
 
 interface EventModalProps {
-  onClose: () => void;
+  isOpen: boolean;
+  onClose: (e: { stopPropagation: () => void }) => void;
   eventId: string;
 }
 
-const EventModal: React.FC<EventModalProps> = ({ onClose, eventId }) => {
+const EventModal: React.FC<EventModalProps> = ({
+  isOpen,
+  onClose,
+  eventId,
+}) => {
   const { data: event } = useGetEvent(eventId);
   if (!event) return null;
-  console.log(event);
   return (
     <Modal
-      isOpen={true}
+      isOpen={isOpen}
       onRequestClose={onClose}
       className='outline-none overflow-auto max-h-full max-w-full'
       overlayClassName='fixed z-[1000] inset-0 bg-black bg-opacity-75 flex items-center justify-center p-4'
       closeTimeoutMS={300}
     >
       <div className='bg-white rounded-xl overflow-hidden shadow-2xl transform transition-all sm:w-full md:max-w-4xl max-h-[90vh] animate-scale-up font-avenirHeavy'>
-        {/* Close button */}
-        <div className='absolute top-4 right-4 z-[1001]'>
+        <div className='absolute top-4 right-4 z-[3000]'>
           <button
             onClick={onClose}
             className='text-white-600 hover:text-white-800 rounded-full p-2 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500'

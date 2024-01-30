@@ -26,10 +26,7 @@ const EditArtist: React.FC = () => {
 
   const onSubmit = (data: IFormValues) => {
     if (!artist) return;
-    // Obtén el estado actual de artist
     const prevArtist = artist;
-
-    // Crea un nuevo objeto artist con los valores actualizados
     const newArtist: IArtist = {
       ...prevArtist,
       description: data.description || prevArtist.description,
@@ -41,11 +38,7 @@ const EditArtist: React.FC = () => {
       mixcloud: data.mixcloud || prevArtist.mixcloud,
       soundcloud: data.soundcloud || prevArtist.soundcloud,
     };
-
-    // Llama a setArtist con el nuevo objeto artist
     setArtist(newArtist);
-
-    // Navega a la página de artist
     navigate(`/`);
   };
 

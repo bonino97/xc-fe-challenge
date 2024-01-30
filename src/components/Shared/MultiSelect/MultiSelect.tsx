@@ -59,7 +59,7 @@ const MultiSelect: React.FC<MultiSelectProps> = ({
       color: '#000',
       fontSize: '16px',
       lineHeight: '24px',
-      fontFamily: 'Avenir Book', // Aquí está la corrección
+      fontFamily: 'Avenir Book',
     }),
 
     placeholder: (provided) => ({
@@ -71,7 +71,7 @@ const MultiSelect: React.FC<MultiSelectProps> = ({
       top: '50%',
       fontSize: '16px',
       lineHeight: '24px',
-      fontFamily: 'Avenir Book', // Aquí está la corrección
+      fontFamily: 'Avenir Book',
     }),
 
     dropdownIndicator: (provided) => ({
@@ -149,11 +149,10 @@ const MultiSelect: React.FC<MultiSelectProps> = ({
               options={musicGendres as unknown as OptionType[]}
               placeholder={placeholder}
               onChange={(val) => {
-                // Asegúrate de que 'val' siempre sea un array de objetos con las propiedades 'value' y 'label'
                 const apiValues = Array.isArray(val)
                   ? transformToApiFormat(val)
                   : [];
-                onChange(apiValues); // Pasa los valores transformados a tu manejador onChange
+                onChange(apiValues);
               }}
               onBlur={onBlur}
               value={selectValue}
