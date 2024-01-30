@@ -1,3 +1,5 @@
+import { useState } from 'react';
+import { EventModal } from '@/components';
 import { days } from '@/constants/days';
 import { IEvent } from '@/types/IEvent.interface';
 
@@ -6,16 +8,22 @@ interface EventCardProps {
 }
 
 const EventCard: React.FC<EventCardProps> = ({ event }) => {
+  const [isOpenModal, setIsOpenModal] = useState<boolean>(false);
   const eventDate = new Date(event.startingTime * 1000);
   const weekDay = eventDate.getDay();
   const month = eventDate.toLocaleString('default', {
     month: 'short',
   });
 
+  const openModal = () => setIsOpenModal(true);
+
+  const closeModal = () => setIsOpenModal(false);
+
   return (
     <div
       key={event.id}
       className='my-3 flex gap-5 items-center b-red rounded-lg shadow-md cursor-pointer overflow-hidden'
+      onClick={openModal}
     >
       <div className='relative'>
         <img
@@ -40,6 +48,8 @@ const EventCard: React.FC<EventCardProps> = ({ event }) => {
           {event.venue.city.name}, {event.venue.city.country.name}
         </p>
       </div>
+
+      {isOpenModal && <EventModal onClose={closeModal} eventId={event.id} />}
     </div>
   );
 };

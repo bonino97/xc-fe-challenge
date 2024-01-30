@@ -9,3 +9,4 @@ export { default as ArtistSocial } from './Artist/Social/Social';
 export { default as EventCard } from './Events/Card/Card';
 export { default as UpcomingEvents } from './Events/Upcoming/Upcoming';
 export { default as PastEvents } from './Events/Past/Past';
+export { default as EventModal } from './Events/Modal/Modal';
